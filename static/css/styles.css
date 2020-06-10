@@ -1,0 +1,229 @@
+body {
+  background: rgb(242, 242, 242);
+  color: black;
+  margin: 0px;
+  padding: 0px;
+  font-family: "Helvetica Neue",-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  font-weight: 400;
+}
+@media (min-width: 576px){
+  .modal-dialog {
+      max-width: 600px;
+      margin: 1.75rem auto;
+  }
+}
+
+.flex--row{
+  display: flex;
+  flex-direction: row;
+}
+
+
+html{
+  background: rgb(242, 242, 242);
+}
+.logo{
+  margin-left: 12px !important;
+}
+
+/* fonts */
+@font-face{
+  font-family: 'HelveticaNeue';
+  src: url("../fonts/HelveticaNeue.ttf")
+}
+
+@font-face{
+  font-family: 'HelveticaNeueLight';
+  src: url("../fonts/HelveticaNeueLt.ttf")
+}
+
+@font-face{
+  font-family: 'HelveticaNeueBold';
+  src: url("../fonts/HelveticaNeueBd.ttf")
+}
+
+@font-face{
+  font-family: 'HelveticaNeueHeavy';
+  src: url("../fonts/HelveticaNeueHv.ttf");
+}
+
+@font-face{
+  font-family: 'HelveticaNeueItalic';
+  src: url("../fonts/HelveticaNeueIt.ttf")
+}
+
+@font-face{
+  font-family: 'HelveticaNeueMedium';
+  src: url("../fonts/HelveticaNeueMed.ttf")
+}
+
+.modal-content{
+  font-family: "HelveticaNeueMedium";
+}
+
+.margin_fix{
+  margin-right: -15px;
+  margin-left: -15px;
+}
+.navbar{
+  background:transparent;
+}
+
+.nav__link{
+  color:black;
+  margin: 11px;
+  display: inline-block;
+  text-decoration: none;
+}
+
+.nav__link:visited{
+  color:black;
+}
+
+.nav__link:hover{
+  color:rgb(77,77,77);
+}
+
+.box{
+  background: white;
+  padding:11px;
+  border-top-right-radius: 10px;
+  border-top-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+  border-bottom-left-radius: 10px;
+}
+
+.form{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 7px;
+}
+
+.button{
+  background: rgb(50,226,252);
+  color:white;
+  padding:11px 23px;
+  border:0;
+  outline:none;
+  margin-bottom: 7px;
+  min-width: 110px;
+}
+
+.button:disabled{
+  background: rgb(171,171,171);
+  color:rgb(255,255,255);
+}
+
+.input__label{
+  margin:5px auto;
+  display: block;
+  width: 100%;
+}
+
+.input{
+  padding:7px;
+  font-size:1em;
+  width:90%;
+  margin:5px auto;
+  outline: none;
+  border:0;
+  background: white;
+}
+
+.shadow{
+    /* Add shadows to create the "card" effect */
+    box-shadow: 0 2px 2px 0 rgba(0,0,0,0.1) !important;
+    transition: 0.3s !important;
+}
+/* On mouse-over, add a deeper shadow */
+.shadow:hover {
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2) !important;
+}
+
+.column{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+table{
+  width:100%;
+  background-color: rgb(240,240,240);
+  box-sizing: border-box;
+  padding: 0px;
+  border-spacing: 0px;
+  display: flex;
+  flex-direction: column;
+}
+
+thead{
+  text-align: left;
+  width: 100%;
+  border-bottom: 2px solid rgb(171,171,171);
+}
+
+tbody{
+  width: 100%;
+}
+
+.table__row{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  padding: 0px;
+  margin: 0px;
+  width:100%;
+  padding:10px;
+  border:0;
+  box-sizing: border-box;
+}
+
+
+.table__row--odd{
+  background: rgb(171,171,171);
+}
+
+.table__column{
+  flex-basis: 50% ;
+  box-sizing: border-box;
+  margin:0;
+  font-weight: 500;
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+}
+.table__column--header{
+  font-weight: 700;
+}
+.table__column--footer{
+  flex-basis: 50%;
+  display: flex;
+  align-items: center;
+  padding:20px;
+  color: black;
+  
+  cursor: pointer;
+}
+
+.table__column select{
+  font-weight: 700;
+  font-size: 1em;
+}
+
+@media screen and (max-width:576px){
+  table {
+    width:100%;
+    margin:auto;
+  }
+  .table__column{
+    flex-basis: 50%;
+  }
+}
+
+.hide{
+  display: none;
+}
