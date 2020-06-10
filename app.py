@@ -114,7 +114,7 @@ def predict():
 
 	predicted_data_frame = prediction.predict_values(data_frame['data'])
 
-	return "How far na"
+	return render_template("prediction.html", data=json.dumps([]))
 
 if __name__ == '__main__':
 	app.run(debug=True)

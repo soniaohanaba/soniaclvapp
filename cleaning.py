@@ -16,12 +16,17 @@ def clean_file(file):
 	"""
 	response = {'message': "Successfully cleaned file", 'error':True, 'data':None}
 	file_extension = file[file.rfind('.'):]
-	if file_extension == '.json':
-		df = pd.read_json(file, index_col=0, header='infer', squeeze=True)
-	elif file_extension == '.csv':
-		df = pd.read_csv(file, index_col=0, header='infer', squeeze=True)
-	elif file_extension == '.xlsx':
-		df = pd.read_excel(file, index_col=0, header='infer', squeeze=True)
+	try:
+		if file_extension == '.json':
+			df = pd.read_json(file, index_col=0, header='infer', squeeze=True)
+		elif file_extension == '.csv':
+			df = pd.read_csv(file, index_col=0, header='infer', squeeze=True)
+		elif file_extension == '.xlsx':
+			df = pd.read_excel(file, index_col=0, header='infer', squeeze=True)
+	except Exception as e:
+		response['message'] = "There was an error reading file"
+		return response
+		
 	df = df.dropna(how='any', axis=0)
 	df = df.apply(lambda x: x.astype(str).str.lower())
 	df.columns = df.columns.str.replace(' ', '')

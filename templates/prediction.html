@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Customer Segmentation of Data</title>
+	<link rel="stylesheet" type="text/css" href="/static/css/styles.css">
+	<link rel="stylesheet" type="text/css" href="/static/css/grid.css">
+	<script type="text/javascript" src="/static/js/chart.js"></script>
+</head>
+<body>
+	<nav style='width:100%; max-width:100%; background:white; height:50px; justify-content:space-between; display:flex'>
+	 	<div style="display: flex; align-items: center">
+	        <div  style='display:flex; cursor:pointer; margin:11px; flex-direction:column'>
+	            <div style='display:flex; flex-direction:row'>
+	                <span style='background:black; width:10px;height:10px; margin:2px'> </span>
+	                <span style='background:black; width:10px;height:10px; margin:2px'> </span>
+	            </div>
+	            <div style='display:flex; flex-direction:row'>
+	                <span style='background:black; width:10px;height:10px; margin:2px'> </span>
+	                <span style='background:black; width:10px;height:10px; margin:2px'> </span>
+	            </div>
+	        </div>
+	        <p class="bold">CLV App</p>
+	    </div>
+	    <div>
+	    	<a class="nav__link" href="/">Home</a>
+	        <a class="nav__link" href="/about">About</a>
+	        <a class="nav__link" href="/upload">Upload Data</a>
+	        <a class="nav__link" href="/describe">Data Description</a>
+	        <a class="nav__link" href="/rfm">Customer Segmentation</a>
+	        <a class="nav__link" href="/predict">Prediction</a>
+	    </div>
+    </nav>
+	<h1>Recency, Frequency and Monetary Values Description</h1>
+	<div class="container">
+		<div class="row" style="align-items: center;">
+			<div class="col-6">
+				<label>
+					Select country for description
+					<select class="input" id="countries">
+						<option value="country">Country</option>
+						
+					</select>
+				</label>
+			</div>
+			<div class="col-6">
+				<label>
+					Select scatter plot/table to display
+					<select class="input" id="comparison">
+						<option value="cust">Customer Segmentation</option>
+						<option value="fvsm">Frequency vs Monetary</option>
+						<option value="rvsf">Recency vs Frequency</option>
+						<option value="rvsm">Recency vs Monetary</option>
+						
+					</select>
+				</label>
+			</div>
+			<div class="col-12" style="text-align: center; justify-content: center;">
+				<button id="visualize" class="button">Visualize</button>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-offset-3 col-6" id="chart_container">
+				<canvas id="myChart1" width="400" height="400"></canvas>
+			</div>
+			<div class="col-6 hide col-offset-3" id="table_container">
+				<h2>Customer segmentation table</h2>
+				<table class="shadow" style="background: white">
+					<thead>
+						<tr class="table__row">
+							<th class="table__column" id="x_axis"></th>
+							<th class="table__column" id="y_axis"></th>
+						</tr>
+					</thead>
+					<tbody id="table__body">
+						
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+
+	<script type="text/javascript">
+		var DATA = ({{data | safe}});
+		var GRAPH_DATA = []
+		var COUNTRIES = []
+		var COUNTRY_DATA = [];
+		var SELECTED_COUNTRY = [];
+
+	</script>
+
+	<script type="text/javascript">
+		// add visualize button event listener
+		var visualize_button = document.getElementById("visualize");
+		visualize_button.addEventListener("click", function(event){
+			var countries_selector = document.getElementById("countries")
+			SELECTED_COUNTRY = COUNTRIES[countries_selector.value];
+			set_country_data(SELECTED_COUNTRY['name']);
+
+			var comparison = document.getElementById("comparison");
+			display_data(comparison.value, COUNTRY_DATA, "Scatter graph")
+		})
+
+		// event listener for dynamically showing graphs
+		// var countries_selector = document.getElementById("countries");
+		// countries_selector.addEventListener("change", function(event){
+		// 	var country_index  = event.target.value;
+		// 	SELECTED_COUNTRY = COUNTRIES[country_index];
+			
+		// 	set_country_data(SELECTED_COUNTRY['name']);
+			
+		// 	display_data('scatter', COUNTRY_DATA, "Scatter graph")
+		// });
+
+		function add_select_options(data, select_tag, value_key, inner_html_key){
+			var select_element = document.getElementById(select_tag);
+			select_element = clear_node(select_element);
+			for (var i = 0; i < data.length; i++){
+				var option = document.createElement("option");
+				option.value = data[i][value_key];
+				option.innerHTML = capitalize(data[i][inner_html_key]);
+				select_element.appendChild(option);
+			}
+		}
+
+		function capitalize(text_string){
+			return text_string[0].toUpperCase() + text_string.slice(1,);
+		}
+
+
+		function filter_countries(){
+			var countries = [];
+			for(var i = 0; i < DATA.length; i++){
+				if(countries.indexOf(DATA[i]['country']) < 0){
+					countries.push(DATA[i]['country']);
+				}
+			}
+			countries = countries.map(function(country, index){
+				return {
+					name: country,
+					index: index+1
+				}
+			})
+
+			var all_countries = {'name': 'All', 'index':0}
+			countries.unshift(all_countries)
+
+			COUNTRIES = countries.slice(0,);
+		}
+
+		// fill the country selector list at page load
+		filter_countries()
+		add_select_options(COUNTRIES, "countries", "index", "name")
+
+		function set_country_data(country){
+			COUNTRY_DATA = DATA.filter(function(data_point){
+				if(country == 'All'){
+					return true;
+				}
+				if(data_point['country'] == country){
+					return true;
+				}
+				return false;
+			})
+		}
+
+		function clear_node(node){
+			while(node.firstChild){
+				node.removeChild(node.firstChild);
+			}
+			return node;
+		}
+
+
+		function generate_graph_data(data, x_axis, y_axis){
+			var segments = {
+				"Mid-Value": "blue",
+				"Low-Value": "red",
+				"High-Value": "green"
+			}
+			return data.map(function(datum){
+				return {
+					'x': datum[x_axis],
+					'y': datum[y_axis],
+					'segment': segments[datum['Segment']]
+				}
+			})
+		}
+
+		function create_canvas(name){
+			var new_canvas = document.createElement('canvas');
+			new_canvas.id = name;
+			new_canvas.width = "350";
+			new_canvas.height = "350";
+
+			return new_canvas;
+		}
+
+		function createElement(tag_name, classes, innerHTML, dataset){
+			var element = document.createElement(tag_name);
+			element.className = classes;
+			element.innerHTML = innerHTML;
+			if(dataset){
+				for(var property in dataset){
+					element.dataset[property] = dataset[property];
+				}
+			}
+			return element;
+		}
+
+		function display_table(x_axis_title, y_axis_title, data){
+			var x_axis = document.getElementById('x_axis');
+			x_axis.innerHTML = x_axis_title;
+			var y_axis = document.getElementById('y_axis');
+			y_axis.innerHTML = y_axis_title;
+			var table__body	= document.getElementById("table__body");
+			var table_container = document.getElementById("table_container");
+			clear_node(table__body);
+			table_container.classList.remove("hide");
+			var chart_container = document.getElementById("chart_container");
+			chart_container.classList.add("hide")
+
+			var segments = [
+				{
+					"name": "Low-Value",
+				},
+				{
+					"name": "Mid-Value",
+				},
+				{
+					"name": "High-Value",
+				}
+			]
+
+			for(var i = 0; i < segments.length; i++){
+				var class_name = (i % 2 == 0) ? "table__row" : "table__row table__row--odd";
+				var table__row = createElement("tr",class_name," ");
+				var customers_list = data.filter((datum) => {
+
+					if( datum['Segment'] == segments[i]['name']){
+						return true;
+					}
+				})
+				var table_x_axis = createElement("td", "table__column", customers_list.length);
+				var table_y_axis = createElement("td", "table__column", segments[i]['name']);
+				table__body.appendChild(table__row);
+				table__row.appendChild(table_x_axis);
+				table__row.appendChild(table_y_axis);
+			}
+		}
+
+		function display_data(comparison, data, title){
+			// clear the chart node
+			var chart_container = document.getElementById("chart_container");
+			chart_container.classList.remove("hide");
+			var table_container = document.getElementById("table_container");
+			table_container.classList.add("hide");
+			var chart_comparisons = {
+				"rvsm": {
+					"x": "Recency",
+					"y": "Monetary",
+				},
+				"rvsf": {
+					"x": "Recency",
+					"y": "Frequency",
+				},
+				"fvsm": {
+					"x": "Frequency",
+					"y": "Monetary",
+				}
+			}
+
+			if (comparison == "cust"){
+				// for customer segmentation table
+				display_table("Number of customers", "Segment", data)
+				return;
+			}
+
+			var selected_comparison = chart_comparisons[comparison]
+
+			chart_container = clear_node(chart_container);
+			var chart1 = create_canvas("chart1");
+			
+			chart_container.appendChild(chart1);
+			
+			GRAPH_DATA = generate_graph_data(data, selected_comparison["x"], selected_comparison["y"] )
+			display_scatter_graph(GRAPH_DATA, `${selected_comparison['x']} vs ${selected_comparison['y']}`, "chart1");
+		}
+
+		function display_scatter_graph(data, title, chart_id){
+			var ctx = document.getElementById(chart_id);
+			var background_colors = data.map(function(datum){
+				return datum['segment'];
+			});
+			
+			var myChart = new Chart(ctx, {
+			    type: 'scatter',
+			    data: {
+			        label: "Scatter dataset",
+			        datasets: [{
+			            label: title,
+			            data: GRAPH_DATA,
+			            backgroundColor: background_colors,
+			            pointRadius: 7
+			        }],
+			
+			    },
+			    options: {
+			    	response:true,
+			        scales: {
+			            yAxes: [{
+			                ticks: {
+			                    beginAtZero: true
+			                }
+			            }]
+			        }
+			    }
+			});
+		}
+
+		
+	</script>
+
+</body>
+</html>
