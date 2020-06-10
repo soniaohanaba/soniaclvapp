@@ -100,6 +100,9 @@ def rfm_description():
 
 @app.route('/predict')
 def predict():
+	if request.args.get('country'):
+		print("how far na")
+		return {'message': "hello world", 'error': False}
 	print("session file is ", session.get('file_path'))
 	file_path = session.get('file_path')
 

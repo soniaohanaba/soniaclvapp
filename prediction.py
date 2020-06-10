@@ -175,7 +175,7 @@ def predict_values(data_frame):
 
 
 	#remove outliers
-	# data_merge = data_merge[data_merge['Revenue_6Mon']<data_merge['Revenue_6Mon'].quantile(0.99)]
+	data_merge = data_merge[data_merge['Revenue_6Mon']<data_merge['Revenue_6Mon'].quantile(0.99)]
 
 
 
@@ -200,8 +200,8 @@ def predict_values(data_frame):
 	#see details of the clusters
 	
 	#convert categorical columns to numerical
-	ltv_class = pd.get_dummies(data_cluster)
-	# print(ltv_class.head())
+	ltv_class = pd.get_dummies(data_cluster, columns=['Segment'])
+	print(ltv_class.head())
 	
 	# print(ltv_class.groupby('LTVCluster').customerid.count()/ltv_class.customerid.count())
 	
