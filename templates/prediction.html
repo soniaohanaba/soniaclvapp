@@ -200,7 +200,7 @@
 				}
 				request_body['params'] = params ? params : {}
 				request_body['data'] = data ? data : {}
-				console.log("data sent across is ", data);
+				console.log("data sent across is ", params);
 				var response = await axios(request_body);
 				if(response.status >= 200 && response.status <= 300){
 					hide_status_message();
