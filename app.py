@@ -1,4 +1,4 @@
-from flask import Flask, g,  Response, request, render_template, redirect, session, flash, url_for
+from flask import Flask, g,  Response, request, render_template, redirect, session, flash, url_for, make_response
 import uuid
 from werkzeug.utils import secure_filename
 import os
@@ -8,6 +8,7 @@ import rfm
 import prediction
 import json
 from datetime import timedelta
+import pandas as pd
 
 UPLOAD_FOLDER = './uploads'
 
@@ -100,9 +101,12 @@ def rfm_description():
 
 @app.route('/predict')
 def predict():
-	if request.args.get('country'):
-		print("how far na")
-		return {'message': "hello world", 'error': False}
+	if not request.args.get('rfm_start_date'):
+		return render_template("prediction.html", data=json.dumps([]))
+
+
+	request_query = dict(request.args)
+	print(request_query)
 	print("session file is ", session.get('file_path'))
 	file_path = session.get('file_path')
 
@@ -115,9 +119,16 @@ def predict():
 		flash(data_frame['message'])
 		return redirect('/upload')
 
-	predicted_data_frame = prediction.predict_values(data_frame['data'])
+	
 
-	return render_template("prediction.html", data=json.dumps([]))
+
+	predicted_data_frame = prediction.predict_values(data_frame['data'], request_query)
+
+	
+	response = make_response(json.dumps(predicted_data_frame))
+	response.content_type = 'application/json'
+
+	return response
 
 if __name__ == '__main__':
 	app.run(debug=True)

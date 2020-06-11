@@ -5,8 +5,7 @@ from sklearn.cluster import KMeans
 import numpy as np 
 # import plotly.offline as pyoff
 # import plotly.graph_objs as go
-from catboost import Pool, CatBoostClassifier
-from sklearn.model_selection import train_test_split
+
 
 #initate plotly
 # pyoff.init_notebook_mode()
@@ -41,17 +40,33 @@ def order_cluster(cluster_field_name, target_field_name, df, ascending):
     
     return df_final
 
-def predict_values(data_frame):
+def predict_values(data_frame, request_query):
 	""" returns a data frame of predicted values
 
 	"""
+	response = {'data':{}, 'error':False, 'message':'Successfully predicted values'}
 	#calculate recency score
 	retailData = data_frame
 	#  using 3 months data for RFM
-	data_3M = retailData[(retailData.invoicedate < datetime(2011,6,1)) & (retailData.invoicedate >= datetime(2011,3,1))].reset_index(drop=True)
+	# {
+	# 			"country": selected_country,
+	# 			"rfm_start_date": rfm_start_date,
+	# 			"rfm_end_date": rfm_end_date,
+	# 			"prediction_start_date": prediction_start_date,
+	# 			"prediction_end_date": prediction_end_date,
+	# 		}
+
+	rfm_start = request_query['rfm_start_date'].split('-')
+	rfm_end = request_query['rfm_end_date'].split('-')
+	prediction_start = request_query['prediction_start_date'].split('-')
+	prediction_end = request_query['prediction_end_date'].split('-')
+	
+	data_3M = retailData[(retailData.invoicedate < datetime(int(rfm_end[0]),int(rfm_end[1]),int(rfm_end[2]))) &
+	(retailData.invoicedate >= datetime(int(rfm_start[0]),int(rfm_start[1]),int(rfm_start[2])))].reset_index(drop=True)
 	
 	# 6 months data
-	data_6M = retailData[(retailData.invoicedate >= datetime(2011,6,1)) & (retailData.invoicedate < datetime(2011,12,1))].reset_index(drop=True)
+	data_6M = retailData[(retailData.invoicedate >= datetime(int(prediction_start[0]),int(prediction_start[1]),int(prediction_start[2]))) & 
+	(retailData.invoicedate < datetime(int(prediction_end[0]), int(prediction_end[1]), int(prediction_end[2])))].reset_index(drop=True)
 	
 	#create users for assigning clustering
 	users = pd.DataFrame(data_3M['customerid'].unique())
@@ -106,8 +121,13 @@ def predict_values(data_frame):
 	users.loc[users['OverallScore']>2,'Segment'] = 'Mid-Value' 
 	users.loc[users['OverallScore']>5,'Segment'] = 'High-Value' 
 
-
-
+	
+	response['data']['rfm_customer_count'] = users[['customerid']].count().to_dict()
+	
+	response['data']['rfm_customer_segment_count'] = users.groupby('Segment')['customerid'].count().to_dict()
+	
+	response['data']['rfm_customer_segment_monetary_value'] = users.groupby('Segment')['Monetary'].sum().to_dict()
+	
 
 	#  calculate 6 months LTV for each customer which will be used for training our model
 
@@ -121,57 +141,6 @@ def predict_values(data_frame):
 
 	data_merge = data_merge.fillna(0)
 	
-
-
-
-
-	# data_graph = data_merge.query("Revenue_6Mon <30000")
-
-	# plot_data = [
-	#     go.Scatter(
-	#         x=data_graph.query("Segment == 'Low-Value'")['OverallScore'],
-	#         y=data_graph.query("Segment == 'Low-Value'")['Revenue_6Mon'],
-	#         mode='markers',
-	#         name='Low',
-	#         marker= dict(size= 7,
-	#             line= dict(width=1),
-	#             color= 'red',
-	#             opacity= 0.8
-	#            )
-	#     ),
-	#         go.Scatter(
-	#         x=data_graph.query("Segment == 'Mid-Value'")['OverallScore'],
-	#         y=data_graph.query("Segment == 'Mid-Value'")['Revenue_6Mon'],
-	#         mode='markers',
-	#         name='Mid',
-	#         marker= dict(size= 9,
-	#             line= dict(width=1),
-	#             color= 'yellow',
-	#             opacity= 0.5
-	#            )
-	#     ),
-	#         go.Scatter(
-	#         x=data_graph.query("Segment == 'High-Value'")['OverallScore'],
-	#         y=data_graph.query("Segment == 'High-Value'")['Revenue_6Mon'],
-	#         mode='markers',
-	#         name='High',
-	#         marker= dict(size= 11,
-	#             line= dict(width=1),
-	#             color= 'green',
-	#             opacity= 0.9
-	#            )
-	#     ),
-	# ]
-
-	# plot_layout = go.Layout(
-	#         yaxis= {'title': "6 Months LTV"},
-	#         xaxis= {'title': "RFM Score"},
-	#         title='LTV'
-	#     )
-	# fig = go.Figure(data=plot_data, layout=plot_layout)
-	# pyoff.iplot(fig)
-
-
 
 
 	#remove outliers
@@ -189,46 +158,15 @@ def predict_values(data_frame):
 	#order cluster number based on LTV
 	data_merge = order_cluster('LTVCluster', 'Revenue_6Mon',data_merge,True)
 
-	# print("data merge")
-	# print(data_merge)
-
+	
 	#creatinga new cluster dataframe
 	data_cluster = data_merge.copy()
+
 	
-	print(data_cluster)
-
-	#see details of the clusters
+	response['data']['prediction_customer_count'] = data_cluster.groupby('LTVCluster')['customerid'].count().to_dict()
 	
-	#convert categorical columns to numerical
-	ltv_class = pd.get_dummies(data_cluster, columns=['Segment'])
-	print(ltv_class.head())
+	response['data']['prediction_ltv_revenue'] = data_cluster.groupby('LTVCluster')['Revenue_6Mon'].sum().to_dict()
 	
-	# print(ltv_class.groupby('LTVCluster').customerid.count()/ltv_class.customerid.count())
+	# response['data']['prediction_ltv_description'] = data_cluster.groupby('LTVCluster')['Revenue_6Mon'].describe().to_dict()
 	
-
-	#create X and y, X will be feature set and y is the label - LTV
-	x = ltv_class.drop(['LTVCluster','Revenue_6Mon'],axis=1)
-	y = ltv_class['LTVCluster']
-
-
-	#split training and test sets
-
-	# test sets should be changeable
-	X_train, X_test, y_train, y_test = train_test_split(x, y, test_size=0.20, random_state = 0)
-
-	ltv_model = CatBoostClassifier(iterations=100,
-	                           learning_rate=1,
-	                           depth=5,
-	                           loss_function='MultiClass', verbose = False).fit(X_train, y_train,   
-	                          )
-
-	print()
-	print('Accuracy of CatBoost classifier on training set: {:.2f}'
-	          .format(ltv_model.score(X_train, y_train)))
-	print('Accuracy of CatBoost classifier on test set: {:.2f}'
-	            .format(ltv_model.score(X_test[X_train.columns], y_test)))
-
-	print()
-	y_pred = ltv_model.predict(X_test)
-	print(classification_report(y_test, y_pred))
-	return "ho"
+	return response
