@@ -32,13 +32,11 @@
     </nav>
 	<h1>Prediction</h1>
 	<div class="container">
-		<div class="row" style="align-items: center;">
-			<div class="col-12">
-				<b class="loading_indicator"></b>
-			</div>
-		</div>
 		
 		<div class="row" style="align-items: center;">
+			<div class="col-12" style="align-items: center;">
+				<h3> <b class="loading__indicator"></b> </h3>
+			</div>
 			<div class="col-6">
 				<label>
 					Select start month for RFM
@@ -312,7 +310,7 @@
 				"prediction_end_date": prediction_end_date,
 			}
 
-			var response = await http_request('get', '/predict', request_params, null, " predicting customer LTV", "Predicting customers LTV")
+			var response = await http_request('get', '/predict', request_params, null, " predicting customer LTV", "Predicting customers LTV... Please wait...")
 			
 			var rfm_start = document.getElementById("rfm_start")
 			rfm_start.innerHTML = request_params['rfm_start_date']
@@ -399,11 +397,11 @@
 			low_mean.innerHTML = response['data']['prediction_ltv_description']['mean']['0']
 			low_std.innerHTML = response['data']['prediction_ltv_description']['std']['0']
 
-			console.log(response)
 		}
 
 		function display_status_message(message){
 			var loading_indicators = document.getElementsByClassName('loading__indicator');
+
 			for(var i = 0; i < loading_indicators.length; i++){
 				loading_indicators[i].classList.remove('hide');
 				loading_indicators[i].innerHTML = message ? message : 'Loading...';
@@ -425,16 +423,7 @@
 			return node;
 		}
 
-		function add_select_options(data, select_tag, value_key, inner_html_key){
-			var select_element = document.getElementById(select_tag);
-			select_element = clearNode(select_element);
-			for (var i = 0; i < data.length; i++){
-				var option = document.createElement("option");
-				option.value = data[i][value_key];
-				option.innerHTML = data[i][inner_html_key];
-				select_element.appendChild(option);
-			}
-		}
+		
 
 		async function http_request(method, path, params, data, reason, loading_message){
 			display_status_message(loading_message)
