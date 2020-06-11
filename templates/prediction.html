@@ -37,17 +37,7 @@
 				<b class="loading_indicator"></b>
 			</div>
 		</div>
-		<div class="row" style="align-items: center;">
-			<div class="col-12">
-				<label>
-					Select country for description
-					<select class="input" id="countries">
-						<option value="country">Country</option>
-						
-					</select>
-				</label>
-			</div>
-		</div>
+		
 		<div class="row" style="align-items: center;">
 			<div class="col-6">
 				<label>
@@ -221,7 +211,7 @@
 		}
 
 		async function predict(){
-			var selected_country = document.getElementById("countries").value;
+			
 			var rfm_start_date = document.getElementById("rfm_start").value;
 			var rfm_end_date = document.getElementById("rfm_end").value;
 			var prediction_start_date = document.getElementById("prediction_start_date").value;
@@ -269,7 +259,6 @@
 
 
 			var request_params = {
-				"country": selected_country,
 				"rfm_start_date": rfm_start_date,
 				"rfm_end_date": rfm_end_date,
 				"prediction_start_date": prediction_start_date,

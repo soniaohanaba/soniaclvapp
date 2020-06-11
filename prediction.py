@@ -139,7 +139,7 @@ def predict_values(data_frame, request_query):
 
 	data_merge = pd.merge(users, users_data_6M, on='customerid', how='left')
 
-	data_merge = data_merge.fillna(0)
+	data_merge = data_merge.fillna('N/A')
 	
 
 
@@ -167,6 +167,6 @@ def predict_values(data_frame, request_query):
 	
 	response['data']['prediction_ltv_revenue'] = data_cluster.groupby('LTVCluster')['Revenue_6Mon'].sum().to_dict()
 	
-	# response['data']['prediction_ltv_description'] = data_cluster.groupby('LTVCluster')['Revenue_6Mon'].describe().to_dict()
+	response['data']['prediction_ltv_description'] = data_cluster.groupby('LTVCluster')['Revenue_6Mon'].describe().to_dict()
 	
 	return response
