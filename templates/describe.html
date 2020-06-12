@@ -27,7 +27,8 @@
 
   <!-- Template Main CSS File -->
   <link href="static/assets/css/style.css" rel="stylesheet">
-
+  <link rel="stylesheet" type="text/css" href="/static/css/styles.css">s 
+  <script type="text/javascript" src="/static/js/chart.js"></script>
   <!-- =======================================================
   * Template Name: Arsha - v2.0.0
   * Template URL: https://bootstrapmade.com/arsha-free-bootstrap-html-template-corporate/
@@ -48,9 +49,9 @@
 
       <nav class="nav-menu d-none d-lg-block">
         <ul>
-          <li class="active"><a href="/">Home</a></li>
+          <li ><a href="/">Home</a></li>
           <li><a href="/upload">Upload data</a></li>
-          <li><a href="/describe">Data Description</a></li>
+          <li class="active"><a href="/describe">Data Description</a></li>
           <li><a href="/rfm">Customer Segmentation</a></li>
           <li><a href="/predict">Prediction</a></li>
           <li><a href="/#about">About</a></li>
@@ -63,83 +64,114 @@
 
         <div class="row">
 
-          	<div id="hero" style="background: white; margin-top:100px" class="col-lg-7 d-flex flex-column justify-content-center align-items-stretch  order-2 order-lg-1">
-	            <div class="accordion-list" >
-	              <ul>
-	                <li>
-	                  <a  ><span>01</span> Carry out basic data description</a>
-	                  <div id="accordion-list-1" class="collapse show" data-parent=".accordion-list">
-	                    <p>
-	                      See dynamic charts such as bar and line graphs and carry out dynamic queries...
-	                    </p>
-	                    <a href="/describe" class="btn-get-started" >
-	                    	Describe
-	                    </a>
-	                  </div>
-	                </li>
+          	<div style="background: white; margin-top:50px" class="col-lg-7 d-flex flex-column justify-content-center align-items-stretch  order-2 order-lg-1">
+	            <section id="contact" class="contact" style="padding:100px;">
+	              <div class="container" data-aos="fade-up">
 
-	                <li>
-	                  <a  ><span>02</span> Implement RFM clustering</a>
-	                  <div  class="collapse show" data-parent=".accordion-list">
-	                    <p>
-	                      See how your customers cluster into high-value, mid-value and low-value ranges...
-	                    </p>
-	                    <a href="/rfm" class="btn-get-started">RFM description</a>
-	                  </div>
-	                </li>
+	                <div class="section-title">
+	                  <h2>Customer data visualization</h2>
+	                </div>
+	                	
+	                <div class="row php-email-form mt-lg-0 d-flex align-items-stretch">
+	                	<div class="col-lg-12" style="align-items: center;">
+							<div class="col-12 form-group">
+								<label style="width: 100%">
+									Select country for description
+									<select style="width:100%" class="form-control" id="countries">
+										<option value="country">Country</option>
+										
+									</select>
+								</label>
+							</div>
+							<div class="col-12">
+								<div class="row">
+									<div class="col-6 form-group">
+										<label>
+											Choose visualization
+											<select class="form-control" id="visualization">
+												<option value="month_vs_revenue">Revenue vs Month</option>
+												<option value="month_vs_revenue_growth">Revenue growth vs Month</option>
+												<option value="month_vs_cust">Number of Customers vs Month</option>
+												<option value="month_vs_trans">Number of Transactions vs Month</option>
+												<option value="quantity_vs_month">Quantity bought vs month</option>
+											</select>
+										</label>
+									</div>
+									<div class="col-6 form-group">
+										<label style="width: 100%">
+											Type of graph
+											<select class="form-control" id="graph_type">
+												<option value="bar">Bar chart</option>
+												<option value="line">Line graph</option>
+											</select>
+										</label>
+									</div>
+								</div>
+							</div>
+						</div>
+						
+						<div class="row" style="align-items: center; width:100%">
+							<div class="col-12" style="text-align: center; justify-content: center;">
+								<button id="visualize" class="button">Visualize</button>
+							</div>
+						</div>
+	                </div>
 
-	                <li>
-	                  <a  ><span>03</span> Predict your customers lifetime value</a>
-	                  <div  class="collapse show" data-parent=".accordion-list">
-	                    <p>
-	                      See results of how your customers would behave in the future and then make decisions based on the outcome.
-	                    </p>
-	                    <a href="/predict" class="btn-get-started">Predict</a>
-	                  </div>
-	                </li>
-
-	              </ul>
-	            </div>
-
+	              </div>
+	            </section>
           	</div>
-          	<div class="col-lg-5 align-items-stretch order-1 order-lg-2 img" style='background-image: url("static/assets/img/why-us.png");' data-aos="zoom-in" data-aos-delay="150">&nbsp;</div>
+          	<div class="col-lg-5 align-items-stretch order-1 order-lg-2 img" style='background-image: url("static/assets/img/hero-img.png");' data-aos="zoom-in" data-aos-delay="150">&nbsp;</div>
         </div>
 
       </div>
     </section><!-- End Why Us Section -->
 
     <!-- ======= About Us Section ======= -->
-  <section id="about" class="about">
-    <div class="container" data-aos="fade-up">
+  	<section id="about" class="about">
+    	<div class="container" data-aos="fade-up">
+      		<div class="section-title">
+        		<h2>Results</h2>
+      		</div>
+      		<div class="row">
+				<div class="col-6" id="chart_container">
+					<canvas id="myChart1" width="400" height="400"></canvas>
+				</div>
+				<div class="col-6 hide" id="table_container">
+					<table class="shadow" style="background: white">
+						<thead>
+							<tr class="table__row">
+								<th class="table__column" id="x_axis"></th>
+								<th class="table__column" id="y_axis"></th>
+							</tr>
+						</thead>
+						<tbody id="table__body">
+							
+						</tbody>
+					</table>
+				</div>
+			</div>
+    	</div>
+  	</section><!-- End About Us Section -->
 
-      <div class="section-title">
-        <h2>About App</h2>
-      </div>
+  	<script type="text/javascript">
+		var DATA = ({{data | safe}});
+		var COUNTRIES = [];
+		var MONTHS = [];
+		var GRAPH_DATA = [];
+		var TITLE = '';
+		var COUNTRY_DATA = [];
+		var SELECTED_COUNTRY = null;
 
-      <div class="row content">
-        <div class="col-lg-6">
-          <p>
-            This web application was built as a channel to enable business owners monitor the growth of their business and channel their marketing/advertising budgets to the right set of customers
-            The app helps in:
-          </p>
-          <ul>
-            <li><i class="ri-check-double-line"></i> Business customers description</li>
-            <li><i class="ri-check-double-line"></i> Customers segmentation using clustering algorithms</li>
-            <li><i class="ri-check-double-line"></i> Customer lifetime value prediction using machine learning models</li>
-          </ul>
-        </div>
-        <div class="col-lg-6 pt-4 pt-lg-0">
-          <p>
-            This app was built by Sharon Okeakwalam. She is a 24 year-old Master's Student in Big Data Management and Analysis. This application was built as part of her thesis project
-          </p>
-        </div>
-      </div>
+		DATA = DATA.map(function(datum){
+			var invoice_date = new Date(datum['invoicedate']);
+			datum['invoicedate'] = `${invoice_date.getFullYear()}-${invoice_date.getMonth()+1}`
+			return datum
+		})
 
-    </div>
-  </section><!-- End About Us Section -->
+		
+	</script>
 
-  
-
+	<script type="text/javascript" src="/static/js/scripts.js"></script>
   <!-- ======= Footer ======= -->
   <footer id="footer">
 

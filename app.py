@@ -24,10 +24,6 @@ app.config['MAX_CONTENT_LENGTH'] = 100 * 1024 * 1024
 def home():
 	return render_template("home.html")
 
-@app.route('/index')
-def index():
-	return render_template("index.html")
-
 @app.route('/about')
 def about():
 	return render_template("about.html")

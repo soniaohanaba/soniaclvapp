@@ -15,6 +15,7 @@ visualize_button.addEventListener("click", function(event){
 	var selected_graph = document.getElementById("graph_type").value;
 	visualizations[selected_visualization]();
 	display_data(selected_graph, GRAPH_DATA, TITLE);
+	window.scrollTo(0,500);
 })
 
 function capitalize(text_string){
