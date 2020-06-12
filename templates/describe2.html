@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Home page</title>
+	<link rel="stylesheet" type="text/css" href="/static/css/styles.css">
+	<link rel="stylesheet" type="text/css" href="/static/css/grid.css">
+	<script type="text/javascript" src="/static/js/chart.js"></script>
+</head>
+<body>
+	<nav style='width:100%; max-width:100%; background:white; height:50px; justify-content:space-between; display:flex'>
+	 	<div style="display: flex; align-items: center">
+	        <div  style='display:flex; cursor:pointer; margin:11px; flex-direction:column'>
+	            <div style='display:flex; flex-direction:row'>
+	                <span style='background:black; width:10px;height:10px; margin:2px'> </span>
+	                <span style='background:black; width:10px;height:10px; margin:2px'> </span>
+	            </div>
+	            <div style='display:flex; flex-direction:row'>
+	                <span style='background:black; width:10px;height:10px; margin:2px'> </span>
+	                <span style='background:black; width:10px;height:10px; margin:2px'> </span>
+	            </div>
+	        </div>
+	        <p class="bold">CLV App</p>
+	    </div>
+	    <div>
+	    	<a class="nav__link" href="/">Home</a>
+	        <a class="nav__link" href="/about">About</a>
+	        <a class="nav__link" href="/upload">Upload Data</a>
+	        <a class="nav__link" href="/describe">Data Description</a>
+	        <a class="nav__link" href="/rfm">Customer Segmentation</a>
+	        <a class="nav__link" href="/predict">Prediction</a>
+	    </div>
+    </nav>
+	<h1>Data upload response</h1>
+	<p>Successfully uploaded data and it has been cleaned...</p>
+	<p>Start visualizing it now...</p>
+	<div class="container">
+		<div class="row" style="align-items: center;">
+			<div class="col-12">
+				<label>
+					Select country for description
+					<select class="input" id="countries">
+						<option value="country">Country</option>
+						
+					</select>
+				</label>
+			</div>
+		</div>
+		<div class="row" style="align-items: center;">
+			<div class="col-12">
+				<div class="row">
+					<div class="col-6">
+						<label>
+							Choose visualization
+							<select class="input" id="visualization">
+								<option value="month_vs_revenue">Revenue vs Month</option>
+								<option value="month_vs_revenue_growth"> vs Month</option>
+								<option value="month_vs_cust">Number of Customers vs Month</option>
+								<option value="month_vs_trans">Number of Transactions vs Month</option>
+								<option value="quantity_vs_month">Quantity bought vs month</option>
+							</select>
+						</label>
+					</div>
+					<div class="col-6">
+						<label>
+							Type of graph
+							<select class="input" id="graph_type">
+								<option value="bar">Bar chart</option>
+								<option value="line">Line graph</option>
+							</select>
+						</label>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-12" style="display:flex; justify-content: center;">
+				<button id="visualize" class="button">Visualize</button>
+			</div>
+		</div>
+	</div>
+	<div class="container">
+		<div class="row">
+			<div class="col-6" id="chart_container">
+				<canvas id="myChart1" width="400" height="400"></canvas>
+			</div>
+			<div class="col-6 hide" id="table_container">
+				<table class="shadow" style="background: white">
+					<thead>
+						<tr class="table__row">
+							<th class="table__column" id="x_axis"></th>
+							<th class="table__column" id="y_axis"></th>
+						</tr>
+					</thead>
+					<tbody id="table__body">
+						
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+
+	<!-- add event listeners for tags -->
+	
+	
+	<script type="text/javascript">
+		var DATA = ({{data | safe}});
+		var COUNTRIES = [];
+		var MONTHS = [];
+		var GRAPH_DATA = [];
+		var TITLE = '';
+		var COUNTRY_DATA = [];
+		var SELECTED_COUNTRY = null;
+
+		DATA = DATA.map(function(datum){
+			var invoice_date = new Date(datum['invoicedate']);
+			datum['invoicedate'] = `${invoice_date.getFullYear()}-${invoice_date.getMonth()+1}`
+			return datum
+		})
+
+		
+	</script>
+
+	<script type="text/javascript" src="/static/js/scripts.js">
+		
+	</script>
+</body>
+</html>

@@ -1716,7 +1716,7 @@ section {
 
 #chart_key{
   display: flex; 
-  flex-direction: row;
+  flex-direction: column;
 }
 
 .input{
