@@ -67,7 +67,7 @@
 
         <div class="row">
 
-          <div class="col-lg-7 d-flex flex-column justify-content-center align-items-stretch  order-2 order-lg-1">
+          <div class="col-lg-6 d-flex flex-column justify-content-center align-items-stretch  order-2 order-lg-1">
 
             <div class="content">
               <h3>Start finding insights in your customer data <strong>by following these steps</strong></h3>
@@ -107,41 +107,40 @@
 
           </div>
 
-          <div class="col-lg-5 align-items-stretch order-1 order-lg-2 img" style='background-image: url("static/assets/img/why-us.png");' data-aos="zoom-in" data-aos-delay="150">&nbsp;</div>
+          <div class="col-lg-6 align-items-stretch order-1 order-lg-2 img" >
+            <section id="contact" class="contact" style="padding:100px;">
+              <div class="container" data-aos="fade-up">
+
+                <div class="section-title">
+                  <h2>Upload customer data file for analysis</h2>
+                  <p>Essential data columns: quantity, unitprice, customerid and invoicedate</p>
+                  {% with messages = get_flashed_messages() %}
+                  {% if messages %}
+                    {% for message in messages %}
+                      <p style="color:red;"><b>{{ message }}</b></p>
+                    {% endfor %}
+                  {% endif %}
+                {% endwith %}
+                </div>
+                
+                <div class="col-lg-12  mt-lg-0 d-flex align-items-stretch">
+                  <form method="post" action="/upload" enctype=multipart/form-data role="form" class="php-email-form">
+                    <div class="form-group">
+                      <label for="name">Select file to upload</label>
+                      <input type="file" class="form-control" name="file" id="file" accept=".json,.csv,.xlsx,application/json,application/csv,application/xlsx"/>
+                      
+                    </div>
+                    <div class="text-center"><button type="submit">Upload</button></div>
+                  </form>
+                </div>
+
+              </div>
+            </section>
+          </div>
         </div>
 
       </div>
     </section><!-- End Why Us Section -->
-
-  <!-- ======= Contact Section ======= -->
-    <section id="contact" class="contact" style="padding:100px;">
-      <div class="container" data-aos="fade-up">
-
-        <div class="section-title">
-          <h2>Upload customer data file for analysis</h2>
-          <p>Essential data columns: quantity, unitprice, customerid and invoicedate</p>
-          {% with messages = get_flashed_messages() %}
-          {% if messages %}
-            {% for message in messages %}
-              <p style="color:red;"><b>{{ message }}</b></p>
-            {% endfor %}
-          {% endif %}
-        {% endwith %}
-        </div>
-        
-        <div class="col-lg-6 offset-lg-3 mt-5 mt-lg-0 d-flex align-items-stretch">
-          <form method="post" action="/upload" enctype=multipart/form-data role="form" class="php-email-form">
-            <div class="form-group">
-              <label for="name">Select file to upload</label>
-              <input type="file" class="form-control" name="file" id="file" accept=".json,.csv,.xlsx,application/json,application/csv,application/xlsx"/>
-              
-            </div>
-            <div class="text-center"><button type="submit">Upload</button></div>
-          </form>
-        </div>
-
-      </div>
-    </section><!-- End Contact Section -->
 
     <!-- ======= About Us Section ======= -->
   <section id="about" class="about">
