@@ -61,77 +61,8 @@
       <a href="/upload" class="get-started-btn scrollto">Get Started</a>
 
     </div>
-  </header><!-- End Header -->
+  </header>
   
-  <!-- ======= Contact Section ======= -->
-    <section id="contact" class="contact" style="padding:100px;">
-      <div class="container" data-aos="fade-up">
-
-        <div class="section-title">
-          <h2>Upload customer data file for analysis</h2>
-          <p>Essential data columns: quantity, unitprice, customerid and invoicedate</p>
-          {% with messages = get_flashed_messages() %}
-          {% if messages %}
-            {% for message in messages %}
-              <p style="color:red;"><b>{{ message }}</b></p>
-            {% endfor %}
-          {% endif %}
-        {% endwith %}
-        </div>
-        
-        <div class="col-lg-6 offset-lg-3 mt-5 mt-lg-0 d-flex align-items-stretch">
-          <form method="post" action="/upload" enctype=multipart/form-data role="form" class="php-email-form">
-            <div class="form-group">
-              <label for="name">Select file to upload</label>
-              <input type="file" class="form-control" name="file" id="file" accept=".json,.csv,.xlsx,application/json,application/csv,application/xlsx"/>
-              
-            </div>
-            <div class="text-center"><button type="submit">Upload</button></div>
-          </form>
-        </div>
-        
-        <h1>Prediction</h1>
-          <div class="container">            
-            <div class="row" style="align-items: center;">
-              <div class="col-12" style="align-items: center;">
-                <h3> <b class="loading__indicator"></b> </h3>
-              </div>
-              <div class="col-6">
-                <label>
-                  Select start month for RFM
-                  <input class="input form-control" type="date" name="rfm_start" id="rfm_start">
-                </label>
-              </div>
-              <div class="col-6">
-                <label>
-                  Select end month for RFM
-                  <input class="input form-control" type="date" name="rfm_end" id="rfm_end">
-                </label>
-              </div>
-            </div>
-            <div class="row" style="align-items: center;">
-              <div class="col-6">
-                <label>
-                  Select start date for LTV Prediction
-                  <input class="input form-control" type="date" name="prediction_start_date" id="prediction_start_date">
-                </label>
-              </div>
-              <div class="col-6">
-                <label>
-                  Select end date for LTV Prediction
-                  <input class="input form-control" type="date" name="prediction_end_date" id="prediction_end_date">
-                </label>
-              </div>
-              <div class="col-12" style="text-align: center; justify-content: center;">
-                <button id="predict" class="button">Predict</button>
-              </div>
-            </div>
-            
-          </div>
-      </div>
-    </section><!-- End Contact Section -->
-
-    <!-- ======= About Us Section ======= -->
   <section id="about" class="about">
     <div class="container" data-aos="fade-up">
 

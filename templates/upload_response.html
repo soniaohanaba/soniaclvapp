@@ -1,55 +1,183 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
-	<title>Response from file upload - Sharon Chidinma CLV App</title>
-	<link rel="stylesheet" type="text/css" href="/static/css/styles.css">
-	<link rel="stylesheet" type="text/css" href="/static/css/grid.css">
-	<script type="text/javascript" src="/static/js/chart.js"></script>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>Sharon Chidinma CLV App</title>
+  <meta content="" name="descriptison">
+  <meta content="" name="keywords">
+
+  <!-- Favicons -->
+  <link href="static/assets/img/favicon.png" rel="icon">
+  <link href="static/assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Jost:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="static/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="static/assets/vendor/icofont/icofont.min.css" rel="stylesheet">
+  <link href="static/assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+  <link href="static/assets/vendor/remixicon/remixicon.css" rel="stylesheet">
+  <link href="static/assets/vendor/venobox/venobox.css" rel="stylesheet">
+  <link href="static/assets/vendor/owl.carousel/assets/owl.carousel.min.css" rel="stylesheet">
+  <link href="static/assets/vendor/aos/aos.css" rel="stylesheet">
+
+  <!-- Template Main CSS File -->
+  <link href="static/assets/css/style.css" rel="stylesheet">
+
+  <!-- =======================================================
+  * Template Name: Arsha - v2.0.0
+  * Template URL: https://bootstrapmade.com/arsha-free-bootstrap-html-template-corporate/
+  * Author: BootstrapMade.com
+  * License: https://bootstrapmade.com/license/
+  ======================================================== -->
 </head>
+
 <body>
-	<nav style='width:100%; max-width:100%; background:white; height:50px; justify-content:space-between; display:flex'>
-	 	<div style="display: flex; align-items: center">
-	        <div  style='display:flex; cursor:pointer; margin:11px; flex-direction:column'>
-	            <div style='display:flex; flex-direction:row'>
-	                <span style='background:black; width:10px;height:10px; margin:2px'> </span>
-	                <span style='background:black; width:10px;height:10px; margin:2px'> </span>
+
+  <!-- ======= Header ======= -->
+  <header id="header" class="fixed-top " style="background: rgba(40, 58, 90, 0.9);">
+    <div class="container d-flex align-items-center">
+
+      <h1 class="logo mr-auto"><a href="index.html">Sharon's CLV APP</a></h1>
+      <!-- Uncomment below if you prefer to use an image logo -->
+      <!-- <a href="index.html" class="logo mr-auto"><img src="static/assets/img/logo.png" alt="" class="img-fluid"></a>-->
+
+      <nav class="nav-menu d-none d-lg-block">
+        <ul>
+          <li class="active"><a href="/">Home</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="/upload">Upload data</a></li>
+          <li><a href="/describe">Data Description</a></li>
+          <li><a href="/rfm">Customer Segmentation</a></li>
+          <li><a href="/predict">Prediction</a></li>
+
+        </ul>
+      </nav><!-- .nav-menu -->
+
+      <a href="/upload" class="get-started-btn scrollto">Get Started</a>
+
+    </div>
+  </header><!-- End Header -->
+  <section id="why-us" class="why-us section-bg">
+      <div class="container-fluid" data-aos="fade-up">
+
+        <div class="row">
+
+          	<div id="hero" style="background: white; margin-top:100px" class="col-lg-7 d-flex flex-column justify-content-center align-items-stretch  order-2 order-lg-1">
+	            <div class="accordion-list" >
+	              <ul>
+	                <li>
+	                  <a  ><span>01</span> Carry out basic data description</a>
+	                  <div id="accordion-list-1" class="collapse show" data-parent=".accordion-list">
+	                    <p>
+	                      See dynamic charts such as bar and line graphs and carry out dynamic queries...
+	                    </p>
+	                    <a href="/describe" class="btn-get-started" >
+	                    	Describe
+	                    </a>
+	                  </div>
+	                </li>
+
+	                <li>
+	                  <a  ><span>02</span> Implement RFM clustering</a>
+	                  <div  class="collapse show" data-parent=".accordion-list">
+	                    <p>
+	                      See how your customers cluster into high-value, mid-value and low-value ranges...
+	                    </p>
+	                    <a href="/rfm" class="btn-get-started">RFM description</a>
+	                  </div>
+	                </li>
+
+	                <li>
+	                  <a  ><span>03</span> Predict your customers lifetime value</a>
+	                  <div  class="collapse show" data-parent=".accordion-list">
+	                    <p>
+	                      See results of how your customers would behave in the future and then make decisions based on the outcome.
+	                    </p>
+	                    <a href="/predict" class="btn-get-started">Predict</a>
+	                  </div>
+	                </li>
+
+	              </ul>
 	            </div>
-	            <div style='display:flex; flex-direction:row'>
-	                <span style='background:black; width:10px;height:10px; margin:2px'> </span>
-	                <span style='background:black; width:10px;height:10px; margin:2px'> </span>
-	            </div>
-	        </div>
-	        <p class="bold">CLV App</p>
-	    </div>
-	    <div>
-	    	<a class="nav__link" href="/">Home</a>
-	        <a class="nav__link" href="/about">About</a>
-	        <a class="nav__link" href="/upload">Upload Data</a>
-	        <a class="nav__link" href="/describe">Data Description</a>
-	        <a class="nav__link" href="/rfm">Customer Segmentation</a>
-	        <a class="nav__link" href="/predict">Prediction</a>
-	    </div>
-    </nav>
-    <div class="container">
-    	<div class="row">
-    		<div class="col-12">
-    			<h1>Data upload response</h1>
-				<p>Successfully uploaded data and it has been cleaned...</p>
-				<p>Start visualizing it now...</p>
-    		</div>
-    		<div class="col-12" style="display:flex; justify-content: center;">
-    			<a style="margin:5px 7px" href="/describe">
-					<button class="button">Data Description</button>
-				</a>
-				<a style="margin:5px 7px" href="/rfm">
-					<button class="button">Customer Segmentation</button>
-				</a>
-				<a style="margin:5px 7px" href="/predict">
-					<button class="button">Make Prediction</button>
-				</a>
-			</div>
-    	</div> 
-		
-	</div>
+
+          	</div>
+          	<div class="col-lg-5 align-items-stretch order-1 order-lg-2 img" style='background-image: url("static/assets/img/why-us.png");' data-aos="zoom-in" data-aos-delay="150">&nbsp;</div>
+        </div>
+
+      </div>
+    </section><!-- End Why Us Section -->
+
+    <!-- ======= About Us Section ======= -->
+  <section id="about" class="about">
+    <div class="container" data-aos="fade-up">
+
+      <div class="section-title">
+        <h2>About App</h2>
+      </div>
+
+      <div class="row content">
+        <div class="col-lg-6">
+          <p>
+            This web application was built as a channel to enable business owners monitor the growth of their business and channel their marketing/advertising budgets to the right set of customers
+            The app helps in:
+          </p>
+          <ul>
+            <li><i class="ri-check-double-line"></i> Business customers description</li>
+            <li><i class="ri-check-double-line"></i> Customers segmentation using clustering algorithms</li>
+            <li><i class="ri-check-double-line"></i> Customer lifetime value prediction using machine learning models</li>
+          </ul>
+        </div>
+        <div class="col-lg-6 pt-4 pt-lg-0">
+          <p>
+            This app was built by Sharon Okeakwalam. She is a 24 year-old Master's Student in Big Data Management and Analysis. This application was built as part of her thesis project
+          </p>
+        </div>
+      </div>
+
+    </div>
+  </section><!-- End About Us Section -->
+
+  
+
+  <!-- ======= Footer ======= -->
+  <footer id="footer">
+
+   
+
+    <div class="container footer-bottom clearfix">
+      <div class="copyright">
+        &copy; Copyright <strong><span>Sharon Chidimma Okeakwalam</span></strong>. All Rights Reserved
+      </div>
+      <div class="credits">
+        <!-- All the links in the footer should remain intact. -->
+        <!-- You can delete the links only if you purchased the pro version. -->
+        <!-- Licensing information: https://bootstrapmade.com/license/ -->
+        <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/arsha-free-bootstrap-html-template-corporate/ -->
+        Website template designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
+      </div>
+    </div>
+  </footer><!-- End Footer -->
+
+  <a href="#" class="back-to-top"><i class="ri-arrow-up-line"></i></a>
+  
+  <!-- Vendor JS Files -->
+  <script src="static/assets/vendor/jquery/jquery.min.js"></script>
+  <script src="static/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="static/assets/vendor/jquery.easing/jquery.easing.min.js"></script>
+  <script src="static/assets/vendor/waypoints/jquery.waypoints.min.js"></script>
+  <script src="static/assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+  <script src="static/assets/vendor/venobox/venobox.min.js"></script>
+  <script src="static/assets/vendor/owl.carousel/owl.carousel.min.js"></script>
+  <script src="static/assets/vendor/aos/aos.js"></script>
+
+  <!-- Template Main JS File -->
+  <script src="static/assets/js/main.js"></script>
+
 </body>
+
 </html>
