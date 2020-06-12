@@ -59,8 +59,23 @@
 			</div>
 		</div>
 		<div class="row">
-			<div class="col-offset-3 col-6" id="chart_container">
+			<div class="col-6" id="chart_container">
 				<canvas id="myChart1" width="400" height="400"></canvas>
+			</div>
+			<div id="chart_key" class="col-4 hide" >
+				<h3>Legend</h3>
+				<span style="display: flex; flex-direction: row; align-items: center;">
+					High-Value 
+					<span style="background:green; width: 40px; height: 40px; border-radius: 50%; margin:20px; display: inline-block;"></span>
+				</span>
+				<span style="display: flex; flex-direction: row; align-items: center;">
+					Mid-Value 
+					<span style="background:blue; width: 40px; height: 40px; border-radius: 50%; margin:20px; display: inline-block;"></span>
+				</span>
+				<span style="display: flex; flex-direction: row; align-items: center;">
+					Low-Value
+					<span style="background:red; width: 40px; height: 40px; border-radius: 50%; margin:20px; display: inline-block;"></span>
+				</span>
 			</div>
 			<div class="col-6 hide col-offset-3" id="table_container">
 				<h2>Customer segmentation table</h2>
@@ -218,6 +233,8 @@
 			table_container.classList.remove("hide");
 			var chart_container = document.getElementById("chart_container");
 			chart_container.classList.add("hide")
+			var chart_keys = document.getElementById("chart_key");
+			chart_keys.classList.add("hide");
 
 			var segments = [
 				{
@@ -254,6 +271,8 @@
 			chart_container.classList.remove("hide");
 			var table_container = document.getElementById("table_container");
 			table_container.classList.add("hide");
+			var chart_keys = document.getElementById("chart_key");
+			chart_keys.classList.remove("hide");
 			var chart_comparisons = {
 				"rvsm": {
 					"x": "Recency",
@@ -278,6 +297,7 @@
 			var selected_comparison = chart_comparisons[comparison]
 
 			chart_container = clear_node(chart_container);
+
 			var chart1 = create_canvas("chart1");
 			
 			chart_container.appendChild(chart1);
@@ -291,11 +311,17 @@
 			var background_colors = data.map(function(datum){
 				return datum['segment'];
 			});
+
+			var labels = data.map(function(datum){
+				var segments = {'red': 'Low-Value', 'blue':'Mid-Value', 'green':'High-Value'}
+				return segments[datum['segment']]
+			});
+
 			
 			var myChart = new Chart(ctx, {
 			    type: 'scatter',
 			    data: {
-			        label: "Scatter dataset",
+			        labels: labels,
 			        datasets: [{
 			            label: title,
 			            data: GRAPH_DATA,
@@ -305,7 +331,22 @@
 			
 			    },
 			    options: {
+			    	tooltips: {
+				        callbacks: {
+				            label: function(tooltipItem, data) {
+				               var label = data.labels[tooltipItem.index];
+				               return label + ': (' + tooltipItem.xLabel + ', ' + tooltipItem.yLabel + ')';
+				            }
+				        }
+				    },
 			    	response:true,
+			    	legend: {
+			    		display: true,
+			    		position: 'bottom',
+			    		labels : {
+			    			fontColor: "#000"
+			    		}
+			    	},
 			        scales: {
 			            yAxes: [{
 			                ticks: {
