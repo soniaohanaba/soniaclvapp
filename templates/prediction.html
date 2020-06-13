@@ -26,7 +26,9 @@
   <link href="static/assets/vendor/aos/aos.css" rel="stylesheet">
 
   <!-- Template Main CSS File -->
-  <link href="static/assets/css/style.css" rel="stylesheet">
+    <link href="static/assets/css/style.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="/static/css/styles.css">
+  <script type="text/javascript" src="/static/js/chart.js"></script>
 
   <!-- =======================================================
   * Template Name: Arsha - v2.0.0
@@ -51,107 +53,465 @@
           <li><a href="/">Home</a></li>
           <li><a href="/upload">Upload data</a></li>
           <li><a href="/describe">Data Description</a></li>
-          <li><a href="/rfm">Customer Segmentation</a></li>
-          <li class="active"><a href="/predict">Prediction</a></li>
+          <li class="active"><a href="/rfm">Customer Segmentation</a></li>
+          <li><a href="/predict">Prediction</a></li>
           <li><a href="/#about">About</a></li>
+
         </ul>
       </nav><!-- .nav-menu -->
     </div>
-  </header>
+  </header><!-- End Header -->
+  <section id="why-us" class="why-us section-bg">
+      <div class="container-fluid" data-aos="fade-up">
 
-  <section class="about">
-    <div class="container" data-aos="fade-up">
+        <div class="row">
 
-      <div class="section-title">
-        <h2>Prediction</h2>
-      </div>
-      <div class="row content" style="align-items: center;">
-		<div class="col-12" style="align-items: center;">
-			<h3> <b class="loading__indicator"></b> </h3>
-		</div>
-		<div class="col-6">
-			<label>
-				Select start month for RFM
-				
-			</label><br />
-			<input class="input" type="date" name="rfm_start" id="rfm_start">
-		</div>
-		<div class="col-6">
-			<label>
-				Select end month for RFM
-				<input class="input" type="date" name="rfm_end" id="rfm_end">
-			</label>
-		</div>
-	</div>
-	<div class="row" style="align-items: center;">
-		<div class="col-6">
-			<label>
-				Select start date for LTV Prediction
-				<input class="input" type="date" name="prediction_start_date" id="prediction_start_date">
-			</label>
-		</div>
-		<div class="col-6">
-			<label>
-				Select end date for LTV Prediction
-				<input class="input" type="date" name="prediction_end_date" id="prediction_end_date">
-			</label>
-		</div>
-		<div class="col-12" style="text-align: center; justify-content: center;">
-			<button id="predict" class="button">Predict</button>
-		</div>
-	</div>
-      <div class="row content">
-        <div class="col-lg-12">
-          <p>
-            This web application was built as a channel to enable business owners monitor the growth of their business and channel their marketing/advertising budgets to the right set of customers
-            The app helps in:
-          </p>
-          <ul>
-            <li><i class="ri-check-double-line"></i> Business customers description</li>
-            <li><i class="ri-check-double-line"></i> Customers segmentation using clustering algorithms</li>
-            <li><i class="ri-check-double-line"></i> Customer lifetime value prediction using machine learning models</li>
-          </ul>
+            <div style="background: white; margin-top:50px" class="col-lg-7 d-flex flex-column justify-content-center align-items-stretch  order-2 order-lg-1">
+                <section id="contact" class="contact" style="padding:100px;">
+                    <div class="container" data-aos="fade-up">
+                        <div class="section-title">
+                            <h2>Prediction of customer lifetime value</h2>
+                        </div>
+                        <div class="col-lg-12 php-email-form mt-lg-0 d-flex align-items-stretch">
+                            <div class="row" style="align-items: center;">
+                                <div class="col-12" style="align-items: center;">
+                                    <h3> <b class="loading__indicator"></b> </h3>
+                                </div>
+                                <div class="col-6 form-group">
+                                    <label>
+                                        Select start month for Monetary value
+                                        <input class="form-control" type="date" name="rfm_start" id="rfm_start">
+                                    </label>
+                                </div>
+                                <div class="col-6 form-group">
+                                    <label>
+                                        Select end month for Monetary value
+                                        <input class="form-control" type="date" name="rfm_end" id="rfm_end">
+                                    </label>
+                                </div>
+                                <div class="col-6 form-group">
+                                    <label>
+                                        Select start date for Lifetime value Prediction
+                                        <input class="form-control" type="date" name="prediction_start_date" id="prediction_start_date">
+                                    </label>
+                                </div>
+                                <div class="col-6 form-group">
+                                    <label>
+                                        Select end date for Lifetime value Prediction
+                                        <input class="form-control" type="date" name="prediction_end_date" id="prediction_end_date">
+                                    </label>
+                                </div>
+                                <div class="col-12 form-group" style="text-align: center; justify-content: center;">
+                                    <button id="predict" class="button">Predict</button>
+                                </div>
+                            </div>
+                            <div class="row">
+                                
+                            </div>
+                        </div>
+
+                    </div>
+                </section>
+            </div>
+            <div class="col-lg-5 align-items-stretch order-1 order-lg-2 img" style='background-image: url("static/assets/img/hero-img.png");' data-aos="zoom-in" data-aos-delay="150">&nbsp;</div>
         </div>
-        <div class="col-lg-6 pt-4 pt-lg-0">
-          <p>
-            This app was built by Sharon Okeakwalam. She is a 24 year-old Master's Student in Big Data Management and Analysis. This application was built as part of her thesis project
-          </p>
-        </div>
+
       </div>
+    </section><!-- End Why Us Section -->
 
-    </div>
-  </section><!-- End About Us Section -->
+    <!-- ======= About Us Section ======= -->
+    <section id="about" class="about">
+        <div class="container" data-aos="fade-up">
+            <div class="section-title">
+                <h2>Results</h2>
+            </div>
+            <div class="row content">
+                <div class="col-12">
+                    <h2>Representation of the monetary value of the customer to the business from <span id="rfm_start"> </span> to <span id="rfm_end">  </span></h2>
+                </div>
+                <div class="col-12">
+                    <p>Number of Customers - <b id="rfm_cust"> </b></p>
+                </div>
+                <div class="col-6">
+                    <p>Distribution of customers based on their monetary value</p>
+                    <table class="shadow" style="background: white">
+                        <thead>
+                            <tr class="table__row">
+                                <th class="table__column" id="x_axis">Segment</th>
+                                <th class="table__column" id="y_axis">Number of customers</th>
+                            </tr>
+                        </thead>
+                        <tbody id="table__body">
+                            <tr class="table__row table__row--odd">
+                                <td class="table__column">High Level</td>
+                                <td class="table__column" id="rfm_high"></td>
+                            </tr>
+                            <tr class="table__row ">
+                                <td class="table__column">Mid Level</td>
+                                <td class="table__column" id="rfm_mid"></td>
+                            </tr>
+                            <tr class="table__row table__row--odd">
+                                <td class="table__column">Low Level</td>
+                                <td class="table__column" id="rfm_low"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col-6">
+                    <p>Monetary value generated by each segment</p>
+                    <table class="shadow" style="background: white">
+                        <thead>
+                            <tr class="table__row">
+                                <th class="table__column" id="x_axis">Segment</th>
+                                <th class="table__column" id="y_axis">Sum of revenue</th>
+                            </tr>
+                        </thead>
+                        <tbody id="table__body">
+                            <tr class="table__row table__row--odd">
+                                <td class="table__column">High Level</td>
+                                <td class="table__column" id="rfm_high_money"></td>
+                            </tr>
+                            <tr class="table__row">
+                                <td class="table__column">Mid Level</td>
+                                <td class="table__column" id="rfm_mid_money"></td>
+                            </tr>
+                            <tr class="table__row table__row--odd">
+                                <td class="table__column">Low Level</td>
+                                <td class="table__column" id="rfm_low_money"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
 
-  <section id="about" class="about">
-    <div class="container" data-aos="fade-up">
+            <div class="row content">
+                <div class="col-12">
+                    <h2>The lifetime value of the values of the customers by <span id="prediction_end"> </span> </h2>
+                </div>
+                
+                <div class="col-6">
+                    <p>The lifetime value of the customers</p>
+                    <table class="shadow" style="background: white">
+                        <thead>
+                            <tr class="table__row">
+                                <th class="table__column" id="x_axis">Segment</th>
+                                <th class="table__column" id="y_axis">Number of customers</th>
+                            </tr>
+                        </thead>
+                        <tbody id="table__body">
+                            <tr class="table__row table__row--odd">
+                                <td class="table__column">High Level</td>
+                                <td class="table__column" id="prediction_high"></td>
+                            </tr>
+                            <tr class="table__row ">
+                                <td class="table__column">Mid Level</td>
+                                <td class="table__column" id="prediction_mid"></td>
+                            </tr>
+                            <tr class="table__row table__row--odd">
+                                <td class="table__column">Low Level</td>
+                                <td class="table__column" id="prediction_low"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col-6">
+                    <p>Monetary value generated by each segment</p>
+                    <table class="shadow" style="background: white">
+                        <thead>
+                            <tr class="table__row">
+                                <th class="table__column" id="x_axis">Segment</th>
+                                <th class="table__column" id="y_axis">Sum of revenue</th>
+                            </tr>
+                        </thead>
+                        <tbody id="table__body">
+                            <tr class="table__row table__row--odd">
+                                <td class="table__column">High Level</td>
+                                <td class="table__column" id="prediction_high_money"></td>
+                            </tr>
+                            <tr class="table__row ">
+                                <td class="table__column">Mid Level</td>
+                                <td class="table__column" id="prediction_mid_money"></td>
+                            </tr>
+                            <tr class="table__row table__row--odd">
+                                <td class="table__column">Low Level</td>
+                                <td class="table__column" id="prediction_low_money"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
 
-      <div class="section-title">
-        <h2>About App</h2>
-      </div>
-
-      <div class="row content">
-        <div class="col-lg-6">
-          <p>
-            This web application was built as a channel to enable business owners monitor the growth of their business and channel their marketing/advertising budgets to the right set of customers
-            The app helps in:
-          </p>
-          <ul>
-            <li><i class="ri-check-double-line"></i> Business customers description</li>
-            <li><i class="ri-check-double-line"></i> Customers segmentation using clustering algorithms</li>
-            <li><i class="ri-check-double-line"></i> Customer lifetime value prediction using machine learning models</li>
-          </ul>
+            <div class="row content">
+                <div class="col-12">
+                    <h2>Statistics of the LTV values </h2>
+                </div>
+                
+                <div class="col-12">
+                    <table class="shadow" style="background: white">
+                        <thead>
+                            <tr class="table__row">
+                                <th style="flex-basis: 16.666%" class="table__column" >Customers segment</th>
+                                <th style="flex-basis: 16.666%" class="table__column" >Customers count</th>
+                                <th style="flex-basis: 16.666%" class="table__column" >Minimum Revenue</th>
+                                <th style="flex-basis: 16.666%" class="table__column" >Maximum Revenue</th>
+                                <th style="flex-basis: 16.666%" class="table__column" >Mean Revenue</th>
+                                <th style="flex-basis: 16.666%" class="table__column" >Standard deviation from Mean Revenue</th>
+                            </tr>
+                        </thead>
+                        <tbody id="table__body">
+                            <tr class="table__row table__row--odd">
+                                <td style="flex-basis: 16.666%" class="table__column">High Level</td>
+                                <td style="flex-basis: 16.666%" class="table__column" id="high_count"></td>
+                                <td style="flex-basis: 16.666%" class="table__column" id="high_min"></td>
+                                <td style="flex-basis: 16.666%" class="table__column" id="high_max"></td>
+                                <td style="flex-basis: 16.666%" class="table__column" id="high_mean"></td>
+                                <td style="flex-basis: 16.666%" class="table__column" id="high_std"></td>
+                            </tr>
+                            <tr class="table__row ">
+                                <td style="flex-basis: 16.666%" class="table__column">Mid Level</td>
+                                <td style="flex-basis: 16.666%" class="table__column" id="mid_count"></td>
+                                <td style="flex-basis: 16.666%" class="table__column" id="mid_min"></td>
+                                <td style="flex-basis: 16.666%" class="table__column" id="mid_max"></td>
+                                <td style="flex-basis: 16.666%" class="table__column" id="mid_mean"></td>
+                                <td style="flex-basis: 16.666%" class="table__column" id="mid_std"></td>
+                            </tr>
+                            <tr class="table__row table__row--odd">
+                                <td style="flex-basis: 16.666%" class="table__column">Low Level</td>
+                                <td style="flex-basis: 16.666%" class="table__column" id="low_count"></td>
+                                <td style="flex-basis: 16.666%" class="table__column" id="low_min"></td>
+                                <td style="flex-basis: 16.666%" class="table__column" id="low_max"></td>
+                                <td style="flex-basis: 16.666%" class="table__column" id="low_mean"></td>
+                                <td style="flex-basis: 16.666%" class="table__column" id="low_std"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
-        <div class="col-lg-6 pt-4 pt-lg-0">
-          <p>
-            This app was built by Sharon Okeakwalam. She is a 24 year-old Master's Student in Big Data Management and Analysis. This application was built as part of her thesis project
-          </p>
-        </div>
-      </div>
+    </section><!-- End About Us Section -->
+    
+    <script type="text/javascript">
+        var DATA = ({{data | safe}});
+        var GRAPH_DATA = []
+        var COUNTRIES = []
+        var COUNTRY_DATA = [];
+        var SELECTED_COUNTRY = [];
 
-    </div>
-  </section><!-- End About Us Section -->
+    </script>
 
-  
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.2/axios.min.js"></script>
+    <script type="text/javascript">
+
+        var predict_button = document.getElementById("predict");
+        predict_button.addEventListener("click", async function(event){
+            await predict();
+            window.scrollTo(0,500)
+        })
+
+        function is_date(date_string){
+            return (new Date(date_string)) != 'Invalid Date';
+        }
+
+        async function predict(){
+            
+            var rfm_start_date = document.getElementById("rfm_start").value;
+            var rfm_end_date = document.getElementById("rfm_end").value;
+            var prediction_start_date = document.getElementById("prediction_start_date").value;
+            var prediction_end_date = document.getElementById("prediction_end_date").value;
+
+            
+            // check if the percentage is between 0-100
+            if(prediction_end_date > 100 || prediction_end_date < 0){
+                alert("Training data percentage should be between 0 and 100");
+                return;
+            }
+
+            if (!is_date(rfm_start_date)){
+                alert("Please select a valid start date for RFM analysis");
+                return;
+            }
+
+            if(!is_date(rfm_end_date)){
+                alert("Please select a valid end date for RFM analysis");
+                return;
+            }
+
+            if(!is_date(prediction_start_date)){
+                alert("Please select a valid date for prediction start date");
+                return;
+            }
+
+            if(!is_date(prediction_end_date)){
+                alert("Please select a valid date for prediction end date");
+                return;
+            }
+
+
+
+            if((new Date(rfm_end_date)) >= (new Date(prediction_start_date))){
+                alert("Prediction date must be older than RFM end date");
+                return;
+            }
+
+            if((new Date(prediction_start_date)) >= (new Date(prediction_end_date))){
+                alert("Prediction end date must be older than prediction start date");
+                return;
+            }
+
+
+
+            var request_params = {
+                "rfm_start_date": rfm_start_date,
+                "rfm_end_date": rfm_end_date,
+                "prediction_start_date": prediction_start_date,
+                "prediction_end_date": prediction_end_date,
+            }
+
+            var response = await http_request('get', '/predict', request_params, null, " predicting customer LTV", "Predicting customers LTV... Please wait...")
+            
+            var rfm_start = document.getElementById("rfm_start")
+            rfm_start.innerHTML = request_params['rfm_start_date']
+
+            var rfm_end = document.getElementById("rfm_end")
+            rfm_end.innerHTML = request_params['rfm_end_date']
+
+            var prediction_end = document.getElementById("prediction_end")
+            prediction_end.innerHTML = request_params['prediction_end_date']
+            
+            var rfm_cust = document.getElementById("rfm_cust")
+            rfm_cust.innerHTML = response['data']['rfm_customer_count']['customerid']
+
+            var rfm_high = document.getElementById("rfm_high");
+            rfm_high.innerHTML = response['data']['rfm_customer_segment_count']['High-Value']
+
+            var rfm_mid = document.getElementById("rfm_mid");
+            rfm_mid.innerHTML = response['data']['rfm_customer_segment_count']['Mid-Value']
+
+            var rfm_low = document.getElementById("rfm_low");
+            rfm_low.innerHTML = response['data']['rfm_customer_segment_count']['Low-Value']
+            
+
+            var rfm_high_money = document.getElementById("rfm_high_money");
+            rfm_high_money.innerHTML = response['data']['rfm_customer_segment_monetary_value']['High-Value']
+
+            var rfm_mid_money = document.getElementById("rfm_mid_money");
+            rfm_mid_money.innerHTML = response['data']['rfm_customer_segment_monetary_value']['Mid-Value']
+
+            var rfm_low_money = document.getElementById("rfm_low_money");
+            rfm_low_money.innerHTML = response['data']['rfm_customer_segment_monetary_value']['Low-Value']
+
+            var prediction_high = document.getElementById("prediction_high");
+            prediction_high.innerHTML = response['data']['prediction_customer_count']['2']
+
+            var prediction_mid = document.getElementById("prediction_mid");
+            prediction_mid.innerHTML = response['data']['prediction_customer_count']['1']
+
+            var prediction_low = document.getElementById("prediction_low");
+            prediction_low.innerHTML = response['data']['prediction_customer_count']['0']
+
+            var prediction_high_money = document.getElementById("prediction_high_money");
+            prediction_high_money.innerHTML = response['data']['prediction_ltv_revenue']['2']
+
+            var prediction_mid_money = document.getElementById("prediction_mid_money");
+            prediction_mid_money.innerHTML = response['data']['prediction_ltv_revenue']['1']
+
+            var prediction_low_money = document.getElementById("prediction_low_money");
+            prediction_low_money.innerHTML = response['data']['prediction_ltv_revenue']['0']
+
+            var high_count = document.getElementById("high_count");
+            var high_min = document.getElementById("high_min");
+            var high_max = document.getElementById("high_max");
+            var high_mean = document.getElementById("high_mean");
+            var high_std = document.getElementById("high_std");
+
+            high_count.innerHTML = response['data']['prediction_ltv_description']['count']['2']
+            high_min.innerHTML = response['data']['prediction_ltv_description']['min']['2']
+            high_max.innerHTML = response['data']['prediction_ltv_description']['max']['2']
+            high_mean.innerHTML = response['data']['prediction_ltv_description']['mean']['2']
+            high_std.innerHTML = response['data']['prediction_ltv_description']['std']['2']
+
+            var mid_count = document.getElementById("mid_count");
+            var mid_min = document.getElementById("mid_min");
+            var mid_max = document.getElementById("mid_max");
+            var mid_mean = document.getElementById("mid_mean");
+            var mid_std = document.getElementById("mid_std");
+
+            mid_count.innerHTML = response['data']['prediction_ltv_description']['count']['1']
+            mid_min.innerHTML = response['data']['prediction_ltv_description']['min']['1']
+            mid_max.innerHTML = response['data']['prediction_ltv_description']['max']['1']
+            mid_mean.innerHTML = response['data']['prediction_ltv_description']['mean']['1']
+            mid_std.innerHTML = response['data']['prediction_ltv_description']['std']['1']
+
+            var low_count = document.getElementById("low_count");
+            var low_min = document.getElementById("low_min");
+            var low_max = document.getElementById("low_max");
+            var low_mean = document.getElementById("low_mean");
+            var low_std = document.getElementById("low_std");
+
+            low_count.innerHTML = response['data']['prediction_ltv_description']['count']['0']
+            low_min.innerHTML = response['data']['prediction_ltv_description']['min']['0']
+            low_max.innerHTML = response['data']['prediction_ltv_description']['max']['0']
+            low_mean.innerHTML = response['data']['prediction_ltv_description']['mean']['0']
+            low_std.innerHTML = response['data']['prediction_ltv_description']['std']['0']
+
+        }
+
+        function display_status_message(message){
+            var loading_indicators = document.getElementsByClassName('loading__indicator');
+
+            for(var i = 0; i < loading_indicators.length; i++){
+                loading_indicators[i].classList.remove('hide');
+                loading_indicators[i].innerHTML = message ? message : 'Loading...';
+            }
+            window.scroll(0,0);
+        }
+
+        function hide_status_message(){
+            var loading_indicators = document.getElementsByClassName('loading__indicator');
+            for(var i = 0; i < loading_indicators.length; i++){
+                loading_indicators[i].classList.add('hide');
+            }
+        }
+
+        function clearNode(node){
+            while(node.firstChild){
+                node.removeChild(node.firstChild);
+            }
+            return node;
+        }
+
+        
+
+        async function http_request(method, path, params, data, reason, loading_message){
+            display_status_message(loading_message)
+            try{
+                var request_body = {
+                    method: method, 
+                    url: path,
+                    headers: {
+                    'content-type':'application/x-www-form-urlencoded; charset=utf-8'}
+                }
+                request_body['params'] = params ? params : {}
+                request_body['data'] = data ? data : {}
+                console.log("data sent across is ", params);
+                var response = await axios(request_body);
+                if(response.status >= 200 && response.status <= 300){
+                    hide_status_message();
+                    return response.data;
+                }
+                var error_message = "There was an error in "+ (reason ? reason : "request ");
+                alert(error_message)
+                hide_status_message();
+                return;
+            } catch (exc){
+                var response = exc.response.data 
+                var error_message = (response && response['message']) ? response['message'] : ("There was an error fetching data for "+ (reason ? reason : " request"));
+                hide_status_message();
+                return {exception:exc, error:true, message:error_message}
+            }
+        }
+        
+    </script>
 
   <!-- ======= Footer ======= -->
   <footer id="footer">
