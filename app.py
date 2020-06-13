@@ -101,8 +101,7 @@ def rfm_description():
 
 @app.route('/predict')
 def predict():
-	if not request.args.get('rfm_start_date'):
-		return render_template("prediction.html", data=json.dumps([]))
+	
 
 
 	request_query = dict(request.args)
@@ -113,6 +112,9 @@ def predict():
 	if file_path is None:
 		flash("Please upload a file before trying to predict")
 		return redirect('/upload')
+
+	if not request.args.get('rfm_start_date'):
+		return render_template("prediction.html", data=json.dumps([]))
 
 	data_frame = clean_file(file_path)
 	if data_frame['error'] == True:
