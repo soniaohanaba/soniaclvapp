@@ -67,7 +67,9 @@ def describe():
 	file_path = session.get('file_path')
 	print(file_path)
 	if file_path is None:
+		flash("Please upload a file before trying to predict")
 		return redirect('/upload')
+		
 	data_frame = clean_file(file_path)
 	if data_frame['error'] == True:
 		flash(data_frame['message'])
@@ -86,6 +88,7 @@ def rfm_description():
 	file_path = session.get('file_path')
 
 	if file_path is None:
+		flash("Please upload a file before trying to predict")
 		return redirect('/upload')
 
 	data_frame = clean_file(file_path)
