@@ -368,6 +368,11 @@
                 return;
             }
 
+            if((new Date(prediction_start_date)) <= (new Date(rfm_end_date))){
+                alert("Prediction start date must be older than rfm end date");
+                return;
+            }
+
             if((new Date(prediction_start_date)) >= (new Date(prediction_end_date))){
                 alert("Prediction end date must be older than prediction start date");
                 return;
