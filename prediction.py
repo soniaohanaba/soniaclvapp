@@ -3,6 +3,9 @@ from datetime import datetime, date
 from sklearn.metrics import classification_report,confusion_matrix
 from sklearn.cluster import KMeans
 import numpy as np 
+
+from sklearn.model_selection import train_test_split
+from catboost import Pool, CatBoostClassifier
 # import plotly.offline as pyoff
 # import plotly.graph_objs as go
 
@@ -174,4 +177,38 @@ def predict_values(data_frame, request_query):
 	response['data']['prediction_ltv_description'] = response['data']['prediction_ltv_description'].fillna(0)
 	response['data']['prediction_ltv_description'] = response['data']['prediction_ltv_description'].to_dict()
 
+
+	
+	#convert categorical columns to numerical
+
+	ltv_class = pd.get_dummies(data_cluster, columns=['Segment'])
+	# ltv_class = pd.get_dummies(data_cluster)
+	print(" ltv head", ltv_class.head())
+	
+	print("ltv division", ltv_class.groupby('LTVCluster').customerid.count()/ltv_class.customerid.count())
+	
+
+	#create X and y, X will be feature set and y is the label - LTV
+	x = ltv_class.drop(['LTVCluster','Revenue_6Mon'],axis=1)
+	y = ltv_class['LTVCluster']
+
+
+	#split training and test sets
+
+	# test sets should be changeable
+	X_train, X_test, y_train, y_test = train_test_split(x, y, test_size=0.20, random_state = 0)
+
+	ltv_model = CatBoostClassifier(iterations=100,
+	                           learning_rate=1,
+	                           depth=5,
+	                           loss_function='MultiClass', verbose = False).fit(X_train, y_train,   
+	                          )
+	print('Accuracy of CatBoost classifier on training set: {:.2f}'
+	          .format(ltv_model.score(X_train, y_train)))
+	print('Accuracy of CatBoost classifier on test set: {:.2f}'
+	            .format(ltv_model.score(X_test[X_train.columns], y_test)))
+
+	print()
+	y_pred = ltv_model.predict(X_test)
+	print(classification_report(y_test, y_pred))
 	return response

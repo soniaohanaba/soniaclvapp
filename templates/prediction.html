@@ -71,7 +71,7 @@
                         <div class="section-title">
                             <h2>Prediction of customer lifetime value</h2>
                         </div>
-                        <div class="col-lg-12 php-email-form mt-lg-0 d-flex align-items-stretch">
+                        <div class="col-lg-12 php-email-form mt-lg-0 d-flex align-items-stretch" >
                             <div class="row" style="align-items: center;">
                                 <div class="col-12" style="align-items: center;">
                                     <h3> <b class="loading__indicator"></b> </h3>
@@ -100,6 +100,12 @@
                                         <input class="form-control" type="date" name="prediction_end_date" id="prediction_end_date">
                                     </label>
                                 </div>
+                                <div class="col-12 form-group">
+                                    <label style="width: 100%">
+                                        Input percentage of test dataset for prediction
+                                        <input class="form-control" type="text" name="test_percent" id="test_percent">
+                                    </label>
+                                </div>
                                 <div class="col-12 form-group" style="text-align: center; justify-content: center;">
                                     <button id="predict" class="button">Predict</button>
                                 </div>
@@ -126,7 +132,7 @@
             </div>
             <div class="row content">
                 <div class="col-12">
-                    <h2>Representation of the monetary value of the customer to the business from <span id="rfm_start"> </span> to <span id="rfm_end">  </span></h2>
+                    <h2>Representation of the monetary value of the customer to the business from <span id="rfm_start_display"> </span> to <span id="rfm_end_display">  </span></h2>
                 </div>
                 <div class="col-12">
                     <p>Number of Customers - <b id="rfm_cust"> </b></p>
@@ -368,11 +374,13 @@
 
             var response = await http_request('get', '/predict', request_params, null, " predicting customer LTV", "Predicting customers LTV... Please wait...")
             
-            var rfm_start = document.getElementById("rfm_start")
-            rfm_start.innerHTML = request_params['rfm_start_date']
+            var rfm_start_display = document.getElementById("rfm_start_display")
+            console.log(request_params['rfm_start_date'])
+            rfm_start_display.innerHTML = request_params['rfm_start_date']
 
-            var rfm_end = document.getElementById("rfm_end")
-            rfm_end.innerHTML = request_params['rfm_end_date']
+            var rfm_end_display = document.getElementById("rfm_end_display")
+            console.log(request_params['rfm_end_date'])
+            rfm_end_display.innerHTML = request_params['rfm_end_date']
 
             var prediction_end = document.getElementById("prediction_end")
             prediction_end.innerHTML = request_params['prediction_end_date']
