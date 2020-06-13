@@ -163,6 +163,8 @@ def predict_values(data_frame, request_query):
 	data_cluster = data_merge.copy()
 
 	data_cluster = data_cluster.fillna(0)
+
+	
 	
 	response['data']['prediction_customer_count'] = data_cluster.groupby('LTVCluster')['customerid'].count().to_dict()
 	
