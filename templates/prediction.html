@@ -250,7 +250,10 @@
                 <div class="col-12">
                     <h2>Statistics of the LTV values </h2>
                 </div>
-                
+                <div class="col-12">
+                    <h4>Accuracy of CatBoost classifier on training set: <span id="catboost_training"></span> </h2>
+                    <h4>Accuracy of CatBoost classifier on test set: <span id="catboost_test"></span></h4>
+                </div>
                 <div class="col-12">
                     <table class="shadow" style="background: white">
                         <thead>
@@ -323,9 +326,23 @@
             var rfm_end_date = document.getElementById("rfm_end").value;
             var prediction_start_date = document.getElementById("prediction_start_date").value;
             var prediction_end_date = document.getElementById("prediction_end_date").value;
+            var test_percent = document.getElementById("test_percent").value;
 
+            // check if test percent is number
+            test_percent = Number(test_percent)
+            if (!test_percent){
+                alert("Percentage of test dataset must be a number");
+                return;
+            }
+
+            if(test_percent > 100 || test_percent < 1){
+                alert("Percentage of test dataset must be between 1-100");
+                return;
+            }
             
             // check if the percentage is between 0-100
+
+
             if(prediction_end_date > 100 || prediction_end_date < 0){
                 alert("Training data percentage should be between 0 and 100");
                 return;
@@ -370,17 +387,22 @@
                 "rfm_end_date": rfm_end_date,
                 "prediction_start_date": prediction_start_date,
                 "prediction_end_date": prediction_end_date,
+                "test_percent": test_percent
             }
 
             var response = await http_request('get', '/predict', request_params, null, " predicting customer LTV", "Predicting customers LTV... Please wait...")
             
             var rfm_start_display = document.getElementById("rfm_start_display")
-            console.log(request_params['rfm_start_date'])
             rfm_start_display.innerHTML = request_params['rfm_start_date']
 
             var rfm_end_display = document.getElementById("rfm_end_display")
-            console.log(request_params['rfm_end_date'])
             rfm_end_display.innerHTML = request_params['rfm_end_date']
+
+            var catboost_training = document.getElementById("catboost_training");
+            var catboost_test = document.getElementById("catboost_test")
+
+            catboost_training.innerHTML = `${response['data']['classifier_training_accuracy']*100}%`
+            catboost_test.innerHTML = `${response['data']['classifier_test_accuracy']*100}%`
 
             var prediction_end = document.getElementById("prediction_end")
             prediction_end.innerHTML = request_params['prediction_end_date']
