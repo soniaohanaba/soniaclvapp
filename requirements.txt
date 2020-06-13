@@ -8,3 +8,5 @@ joblib
 comb
 catboost
 gunicorn
+flask-session
+redis

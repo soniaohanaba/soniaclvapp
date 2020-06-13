@@ -9,15 +9,17 @@ import prediction
 import json
 from datetime import timedelta
 import pandas as pd
+from flask_session import Session 
+sess = Session()
 
 UPLOAD_FOLDER = './uploads'
 
 app = Flask(__name__)
+app.config.from_object('config.Config')
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
-app.config['SECRET_KEY'] = uuid.uuid4().hex
 app.config['MAX_CONTENT_LENGTH'] = 100 * 1024 * 1024
-
-
+app.config['SECRET_KEY'] = os.environ.get('CLV_KEY')
+sess.init_app(app)
 
 
 @app.route('/')
@@ -47,7 +49,7 @@ def upload_data():
 			file.save(file_path)
 			
 			session['file_path'] = file_path
-			session.permanent = True
+			
 			return redirect("/upload_response")
 
 	return render_template("upload.html")
@@ -63,7 +65,7 @@ def describe():
 
 	"""
 	file_path = session.get('file_path')
-	
+	print(file_path)
 	if file_path is None:
 		return redirect('/upload')
 	data_frame = clean_file(file_path)
@@ -82,7 +84,7 @@ def describe():
 def rfm_description():
 	print("session file is ",session.get('file_path'))
 	file_path = session.get('file_path')
-	
+
 	if file_path is None:
 		return redirect('/upload')
 
