@@ -41,6 +41,8 @@ def upload_data():
 			return redirect(request.url)
 		if file and allowed_file(file.filename):
 			filename = secure_filename(file.filename)
+			if os.path.isdir(app.config['UPLOAD_FOLDER']) is False:
+				os.mkdir(app.config['UPLOAD_FOLDER'])
 			file_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
 			file.save(file_path)
 			
