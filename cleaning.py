@@ -35,7 +35,7 @@ def clean_file(file):
 	necessary_columns = ['unitprice', 'invoicedate', 'customerid', 'quantity']
 	for column in necessary_columns:
 		if column not in df.columns:
-			response['message'] = 'You must provided {} column'.format(column)
+			response['message'] = 'You must provided {} column in your dataset. Please upload another file'.format(column)
 			return response
 
 	df['invoicedate'] = pd.to_datetime(df['invoicedate'])

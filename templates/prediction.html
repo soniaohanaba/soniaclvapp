@@ -388,6 +388,11 @@
             }
 
             var response = await http_request('get', '/predict', request_params, null, " predicting customer LTV", "Predicting customers LTV... Please wait...")
+
+            if(response['error']){
+                alert(response['message']);
+                return;
+            }
             
             var rfm_start_display = document.getElementById("rfm_start_display")
             rfm_start_display.innerHTML = request_params['rfm_start_date']

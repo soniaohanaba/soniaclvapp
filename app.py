@@ -121,15 +121,12 @@ def predict():
 
 	data_frame = clean_file(file_path)
 	if data_frame['error'] == True:
-		flash(data_frame['message'])
-		return redirect('/upload')
+		response_message = {'error':True, 'message':data_frame['message'], 'data':None}
+		response = make_response(json.dumps(response_message))
+		response.content_type = 'application/json'
+		return response
 
-	
-
-
-	predicted_data_frame = prediction.predict_values(data_frame['data'], request_query)
-
-	
+	predicted_data_frame = prediction.predict_values(data_frame['data'], request_query)	
 	response = make_response(json.dumps(predicted_data_frame))
 	response.content_type = 'application/json'
 
