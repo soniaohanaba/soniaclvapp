@@ -116,15 +116,15 @@ def predict():
 		flash("Please upload a file before trying to predict")
 		return redirect('/upload')
 
-	if not request.args.get('rfm_start_date'):
-		return render_template("prediction.html", data=json.dumps([]))
+	
 
 	data_frame = clean_file(file_path)
 	if data_frame['error'] == True:
-		response_message = {'error':True, 'message':data_frame['message'], 'data':None}
-		response = make_response(json.dumps(response_message))
-		response.content_type = 'application/json'
-		return response
+		flash(data_frame['message'])
+		return redirect('/upload')
+
+	if not request.args.get('rfm_start_date'):
+		return render_template("prediction.html", data=json.dumps([]))
 
 	predicted_data_frame = prediction.predict_values(data_frame['data'], request_query)	
 	response = make_response(json.dumps(predicted_data_frame))
