@@ -63,7 +63,7 @@ def predict_values(data_frame, request_query):
 	rfm_end = request_query['rfm_end_date'].split('-')
 	prediction_start = request_query['prediction_start_date'].split('-')
 	prediction_end = request_query['prediction_end_date'].split('-')
-	test_size = float(request_query['test_percent']) / 100
+	test_size = 0.20
 	print("test size is ", test_size)
 	
 	data_3M = retailData[(retailData.invoicedate < datetime(int(rfm_end[0]),int(rfm_end[1]),int(rfm_end[2]))) &
@@ -210,8 +210,8 @@ def predict_values(data_frame, request_query):
 	print('Accuracy of CatBoost classifier on test set: {:.2f}'
 	            .format(ltv_model.score(X_test[X_train.columns], y_test)))
 
-	response['data']['classifier_training_accuracy'] = ltv_model.score(X_train, y_train)
-	response['data']['classifier_test_accuracy'] = ltv_model.score(X_test[X_train.columns], y_test)
+	# response['data']['classifier_training_accuracy'] = ltv_model.score(X_train, y_train)
+	# response['data']['classifier_test_accuracy'] = ltv_model.score(X_test[X_train.columns], y_test)
 
 	y_pred = ltv_model.predict(X_test)
 	print(classification_report(y_test, y_pred))

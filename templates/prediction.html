@@ -100,12 +100,12 @@
                                         <input class="form-control" type="date" name="prediction_end_date" id="prediction_end_date">
                                     </label>
                                 </div>
-                                <div class="col-12 form-group">
+                                <!-- <div class="col-12 form-group">
                                     <label style="width: 100%">
                                         Input percentage of test dataset for prediction
                                         <input class="form-control" type="text" name="test_percent" id="test_percent">
                                     </label>
-                                </div>
+                                </div> -->
                                 <div class="col-12 form-group" style="text-align: center; justify-content: center;">
                                     <button id="predict" class="button">Predict</button>
                                 </div>
@@ -250,10 +250,10 @@
                 <div class="col-12">
                     <h2>Statistics of the LTV values </h2>
                 </div>
-                <div class="col-12">
+                <!-- <div class="col-12">
                     <h4>Accuracy of CatBoost classifier on training set: <span id="catboost_training"></span> </h2>
                     <h4>Accuracy of CatBoost classifier on test set: <span id="catboost_test"></span></h4>
-                </div>
+                </div> -->
                 <div class="col-12">
                     <table class="shadow" style="background: white">
                         <thead>
@@ -326,19 +326,19 @@
             var rfm_end_date = document.getElementById("rfm_end").value;
             var prediction_start_date = document.getElementById("prediction_start_date").value;
             var prediction_end_date = document.getElementById("prediction_end_date").value;
-            var test_percent = document.getElementById("test_percent").value;
+            // var test_percent = document.getElementById("test_percent").value;
 
             // check if test percent is number
-            test_percent = Number(test_percent)
-            if (!test_percent){
-                alert("Percentage of test dataset must be a number");
-                return;
-            }
+            // test_percent = Number(test_percent)
+            // if (!test_percent){
+            //     alert("Percentage of test dataset must be a number");
+            //     return;
+            // }
 
-            if(test_percent > 100 || test_percent < 1){
-                alert("Percentage of test dataset must be between 1-100");
-                return;
-            }
+            // if(test_percent > 100 || test_percent < 1){
+            //     alert("Percentage of test dataset must be between 1-100");
+            //     return;
+            // }
             
             // check if the percentage is between 0-100
 
@@ -385,7 +385,6 @@
                 "rfm_end_date": rfm_end_date,
                 "prediction_start_date": prediction_start_date,
                 "prediction_end_date": prediction_end_date,
-                "test_percent": test_percent
             }
 
             var response = await http_request('get', '/predict', request_params, null, " predicting customer LTV", "Predicting customers LTV... Please wait...")
@@ -396,11 +395,11 @@
             var rfm_end_display = document.getElementById("rfm_end_display")
             rfm_end_display.innerHTML = request_params['rfm_end_date']
 
-            var catboost_training = document.getElementById("catboost_training");
-            var catboost_test = document.getElementById("catboost_test")
+            // var catboost_training = document.getElementById("catboost_training");
+            // var catboost_test = document.getElementById("catboost_test")
 
-            catboost_training.innerHTML = `${response['data']['classifier_training_accuracy']*100}%`
-            catboost_test.innerHTML = `${response['data']['classifier_test_accuracy']*100}%`
+            // catboost_training.innerHTML = `${response['data']['classifier_training_accuracy']*100}%`
+            // catboost_test.innerHTML = `${response['data']['classifier_test_accuracy']*100}%`
 
             var prediction_end = document.getElementById("prediction_end")
             prediction_end.innerHTML = request_params['prediction_end_date']
